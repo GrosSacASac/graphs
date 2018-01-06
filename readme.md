@@ -15,7 +15,13 @@ display some help
 
 document the fact that you can  use x and before and all JS math operators
 
-use worka when it takes too long
+use worka when it takes too long (80 points)
+
+, use multiple when above certain treshrold (1000 ?)
+
+Make it abortable with controller abort same as fetch see mdn
+
+omits points in the graph when too many (80)
 
 number placeholder looks ugly because of padding
 
