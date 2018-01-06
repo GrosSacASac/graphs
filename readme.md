@@ -21,6 +21,8 @@ number placeholder looks ugly because of padding
 
 make it work under IE9 and others
 
+provide noscript and canvas fallback
+
 
 ## About tachyons
 
