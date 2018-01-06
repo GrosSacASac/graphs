@@ -1,0 +1,21 @@
+/* styles only index.html */
+
+/* 
+for production use a bundler to avoid network round-trips
+*/
+/*@import '../node_modules/frappe-charts/dist/frappe-charts.min.css';
+is this necessary ?
+*/
+input, textarea {
+  text-align: center;
+}
+
+h2, figcaption {
+  font-weight: 700;
+}
+
+/*
+@media screen and (min-device-width: 960px) {
+
+}
+*/

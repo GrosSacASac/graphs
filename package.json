@@ -1,0 +1,17 @@
+{
+  "name": "graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "dom99": "^8.2.4",
+    "frappe-charts": "0.0.8",
+    "tachyons": "^4.9.1"
+  }
+}
