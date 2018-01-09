@@ -7,6 +7,8 @@ Draw a curve on a 2D graph, with given function, start, stop and step.
 
 ## todo
 
+solve bug 2/x --> division by 0 display something or filter result out yes filter it out before chart.update_values 
+
 whitelist commands for equation
 
 2 inputs and see where they cross.
