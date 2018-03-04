@@ -1,7 +1,7 @@
 {
   "name": "graph",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo: Draw a curve on a 2D graph, with given function, start, stop and step.",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
