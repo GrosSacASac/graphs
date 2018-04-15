@@ -8,21 +8,21 @@ import {initialData} from "./settings/data.js";
 window.d = d;
 let chart;
 
-const calculate = function () {  
+const calculate = function () {
   const start = Number(d.variables.start);
   const stop = Number(d.variables.stop);
   const step = Number(d.variables.step);
   const equationString = d.variables.equation;
 
   const errorMessage = validateInput(start, stop, step, equationString);
-  d.feed(errorMessage, `errorHelp`);
+  d.feed(`errorHelp`, errorMessage);
   if (errorMessage) {
     return;
   }
   const resolveEquation = new Function("x", "before", `return ${equationString};`);
-  
 
-  
+
+
   const [results, xLabels] = getResultsAndLabels(start, stop, step, resolveEquation)
   // results are f(x)
   // and xLabels are x
@@ -56,9 +56,9 @@ const validateInput  = function (start, stop, step, equationString) {
   if (equationString.length === 0) {
     return `Equation must not be empty`;
   }
-  
+
   // todo validate equationString from a whitelist of acceptable operators
-  
+
   // no problems
   return "";
 };
@@ -66,12 +66,12 @@ const validateInput  = function (start, stop, step, equationString) {
 const getResultsAndLabels = function (start, stop, step, resolveEquation) {
   const results = [];
   const xLabels = [];
-  
+
   let currentValue = start;
   let previousValue = start;
   let i = 0; // use a multiplier for enhanced precision
   // todo stop using floats for even better precision
-  
+
   while (currentValue < stop) {
     const result = resolveEquation(currentValue, previousValue)
     results.push(result);
@@ -80,7 +80,7 @@ const getResultsAndLabels = function (start, stop, step, resolveEquation) {
     previousValue = result;
     currentValue = start + (i * step);
   }
-  
+
   // results are f(x)
   // and xLabels are x
   // the y axis adjusts automatically
@@ -123,7 +123,7 @@ d.start(
         // here you can use d.elements
 
         d.elements.loadingHint.remove();
-        
+
         chart = new Chart({
             parent: d.elements.chart,
             data: initialData,
