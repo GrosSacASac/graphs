@@ -1,11 +1,8 @@
-/*
-todo validate user input
-*/
-import d from "../node_modules/dom99/built/dom99Module.js";
+import * as d from "../node_modules/dom99/built/dom99ES.js";
 import Chart from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.js";
+import {validateInput} from "./validateInput.js";
 import {initialData} from "./settings/data.js";
 
-window.d = d;
 let chart;
 
 const calculate = function () {
@@ -30,38 +27,7 @@ const calculate = function () {
   updateChart(xLabels, results);
 };
 
-const validateInput  = function (start, stop, step, equationString) {
 
-  if (!Number.isFinite(start)) {
-    return `Start is not a finite number`;
-  }
-  if (!Number.isFinite(stop)) {
-    return `Stop is not a finite number`;
-  }
-  if (!Number.isFinite(step)) {
-    return `Step is not a finite number`;
-  }
-  if (step === 0) {
-    return `Step must not be 0`;
-  }
-  if ((step > 0 && start > stop) || (step < 0 && start < stop)) {
-    return `Step added to Start should bring us to Stop`;
-  }
-  if (start === stop) {
-    return `Stop must be different than Start`;
-  }
-  if (Math.abs(step) >= (Math.abs(stop) - Math.abs(start))) {
-    return `Step's absolute value must be smaller`;
-  }
-  if (equationString.length === 0) {
-    return `Equation must not be empty`;
-  }
-
-  // todo validate equationString from a whitelist of acceptable operators
-
-  // no problems
-  return "";
-};
 
 const getResultsAndLabels = function (start, stop, step, resolveEquation) {
   const results = [];
@@ -108,16 +74,16 @@ const updateChart = function (xLabels, results) {
 // here you cannot use d.elements
 
 d.start(
-    {
-        calculate
-    }, // functions
+    document.body, // start Element
     {
         step: "1",
         start: "0",
         stop: "20",
         equation: "x ** 2"
     }, // initial feed
-    document.body, // start Element
+    {
+        calculate
+    }, // functions
     function () {
         // function executes after dom99 went through
         // here you can use d.elements
