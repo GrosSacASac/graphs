@@ -1,6 +1,6 @@
 {
   "name": "graph",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Demo: Draw a curve on a 2D graph, with given function, start, stop and step.",
   "main": "index.html",
   "scripts": {

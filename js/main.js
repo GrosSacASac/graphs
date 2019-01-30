@@ -39,8 +39,13 @@ const getResultsAndLabels = function (start, stop, step, resolveEquation) {
   // todo stop using floats for even better precision
 
   while (currentValue < stop) {
-    const result = resolveEquation(currentValue, previousValue)
-    results.push(result);
+    const result = resolveEquation(currentValue, previousValue);
+    if (Number.isFinite(result)) {
+      results.push(result);
+    } else {
+      results.push(1);
+    }
+    
     xLabels.push(String(currentValue));
     i += 1;
     previousValue = result;
