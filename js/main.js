@@ -1,5 +1,5 @@
 import * as d from "../node_modules/dom99/built/dom99ES.js";
-import Chart from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.js";
+import {Chart} from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.js";
 import {validateInput} from "./validateInput.js";
 import {initialData} from "./settings/data.js";
 
@@ -53,18 +53,22 @@ const getResultsAndLabels = function (start, stop, step, resolveEquation) {
   return [results, xLabels];
 };
 
-const updateChart = function (xLabels, results) {
-  /* updates the chart where xLabels is an array with labels (String) that are displayed
+const updateChart = function (labels, results) {
+  /* updates the chart where labels is an array with labels (String) that are displayed
   along the x axis,
   and results is an array of Number with the same length and in the same order.
   These are represented as points in the chart type line
   */
-  chart.update_values(
-    [
-      {values: results},
-    ],
-    xLabels
-  );
+  chart.update({
+      labels,
+      datasets: [
+        {
+          title: "Graph",
+          values: results
+        },
+      ]
+    
+  });
 };
 
 
@@ -90,18 +94,12 @@ d.start(
 
         d.elements.loadingHint.remove();
 
-        chart = new Chart({
-            parent: d.elements.chart,
+        chart = new Chart(d.elements.chart, {
             data: initialData,
             type: "line", // or 'line', 'scatter', 'pie', 'percentage'
             height: 380,
 
             colors: ['#7cd6fd'],
-            // hex-codes or these preset colors;
-            // defaults (in order):
-            // ['light-blue', 'blue', 'violet', 'red',
-            // 'orange', 'yellow', 'green', 'light-green',
-            // 'purple', 'magenta', 'grey', 'dark-grey']
 
             format_tooltip_x: d => `f(${d})= `,
             format_tooltip_y: d => String(d)

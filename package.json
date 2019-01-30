@@ -1,17 +1,20 @@
 {
   "name": "graph",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Demo: Draw a curve on a 2D graph, with given function, start, stop and step.",
   "main": "index.html",
   "scripts": {
+    "serve": "serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "serve": "^10.1.1"
+  },
   "dependencies": {
-    "dom99": "^17.0.1",
+    "dom99": "^17.3.2",
     "frappe-charts": "^1.1.0",
-    "tachyons": "^4.9.1"
+    "tachyons": "^4.11.1"
   }
 }
