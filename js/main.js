@@ -1,79 +1,83 @@
 import * as d from "../node_modules/dom99/source/dom99.js";
-import {Chart} from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.js";
-import {validateInput} from "./validateInput.js";
-import {initialData} from "./settings/data.js";
+import { Chart } from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.js";
+import { validateInput } from "./validateInput.js";
+import { initialData } from "./settings/data.js";
 
 let chart;
 
-const calculate = function () {
-  const start = Number(d.variables.start);
-  const stop = Number(d.variables.stop);
-  const step = Number(d.variables.step);
-  const equationString = d.variables.equation;
+const calculate = function (event) {
+    // prevent form submit
+    if (event) {
+        event.preventDefault();
+    }
+    const start = Number(d.variables.start);
+    const stop = Number(d.variables.stop);
+    const step = Number(d.variables.step);
+    const equationString = d.variables.equation;
 
-  const errorMessage = validateInput(start, stop, step, equationString);
-  d.feed(`errorHelp`, errorMessage);
-  if (errorMessage) {
-    return;
-  }
-  const resolveEquation = new Function("x", "before", `return ${equationString};`);
+    const errorMessage = validateInput(start, stop, step, equationString);
+    d.feed(`errorHelp`, errorMessage);
+    if (errorMessage) {
+        return;
+    }
+    const resolveEquation = new Function("x", "before", `return ${equationString};`);
 
 
 
-  const [results, xLabels] = getResultsAndLabels(start, stop, step, resolveEquation)
-  // results are f(x)
-  // and xLabels are x
-  // the y axis adjusts automatically
-  updateChart(xLabels, results);
+    const [results, xLabels] = getResultsAndLabels(start, stop, step, resolveEquation)
+    // results are f(x)
+    // and xLabels are x
+    // the y axis adjusts automatically
+    updateChart(xLabels, results);
 };
 
 
 
 const getResultsAndLabels = function (start, stop, step, resolveEquation) {
-  const results = [];
-  const xLabels = [];
+    const results = [];
+    const xLabels = [];
 
-  let currentValue = start;
-  let previousValue = start;
-  let i = 0; // use a multiplier for enhanced precision
-  // todo stop using floats for even better precision
+    let currentValue = start;
+    let previousValue = start;
+    let i = 0; // use a multiplier for enhanced precision
+    // todo stop using floats for even better precision
 
-  while (currentValue < stop) {
-    const result = resolveEquation(currentValue, previousValue);
-    if (Number.isFinite(result)) {
-      results.push(result);
-    } else {
-      results.push(1);
+    while (currentValue < stop) {
+        const result = resolveEquation(currentValue, previousValue);
+        if (Number.isFinite(result)) {
+            results.push(result);
+        } else {
+            results.push(1);
+        }
+
+        xLabels.push(String(currentValue));
+        i += 1;
+        previousValue = result;
+        currentValue = start + (i * step);
     }
-    
-    xLabels.push(String(currentValue));
-    i += 1;
-    previousValue = result;
-    currentValue = start + (i * step);
-  }
 
-  // results are f(x)
-  // and xLabels are x
-  // the y axis adjusts automatically
-  return [results, xLabels];
+    // results are f(x)
+    // and xLabels are x
+    // the y axis adjusts automatically
+    return [results, xLabels];
 };
 
 const updateChart = function (labels, results) {
-  /* updates the chart where labels is an array with labels (String) that are displayed
-  along the x axis,
-  and results is an array of Number with the same length and in the same order.
-  These are represented as points in the chart type line
-  */
-  chart.update({
-      labels,
-      datasets: [
-        {
-          title: "Graph",
-          values: results
-        },
-      ]
-    
-  });
+    /* updates the chart where labels is an array with labels (String) that are displayed
+    along the x axis,
+    and results is an array of Number with the same length and in the same order.
+    These are represented as points in the chart type line
+    */
+    chart.update({
+        labels,
+        datasets: [
+            {
+                title: "Graph",
+                values: results
+            },
+        ]
+
+    });
 };
 
 
@@ -84,14 +88,14 @@ const updateChart = function (labels, results) {
 
 d.functions.calculate = calculate;
 d.start({
-  startElement: document.body,
-  initialFeed: {
+    startElement: document.body,
+    initialFeed: {
         step: "1",
         start: "0",
         stop: "20",
         equation: "x ** 2"
     },
-  });
+});
 
 // executes after dom99 went through
 // here you can use d.elements

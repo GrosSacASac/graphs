@@ -25,7 +25,7 @@
 
    <div class="mw9 center">
    <div class="cf ph1-l">
-    <div class="inputs fl w-100 w-third-l pa2-l">
+    <form data-function="submit-calculate" class="inputs fl w-100 w-third-l pa2-l">
         <h2 class="f3">Inputs</h2>
         <label class="ma1">
             <span class="f6 b db mb2">Equation</span>
@@ -49,8 +49,9 @@
         
         <p class="ma1 w-100 measure br2 ba" data-variable="errorHelp"></p>
         
-        <button data-function="calculate" class="f5 fw6 dib ba b--black-20 bg-blue white ph3 pv2 br2 grow mv2 w-100 measure">Calculate</button>
-    </div>
+        <button class="f5 fw6 dib ba b--black-20 bg-blue white ph3 pv2 br2 grow mv2 w-100 measure">Calculate</button>
+    </form>
+
     <figure class="fl w-100 w-two-thirds-l pa1-l ma0">
         <figcaption class="f3">Result</figcaption>
         <div data-element="chart" class="chart"></div>
