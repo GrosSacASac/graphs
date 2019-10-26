@@ -1,4 +1,4 @@
-import * as d from "../node_modules/dom99/built/dom99ES.js";
+import * as d from "../node_modules/dom99/source/dom99.js";
 import {Chart} from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.js";
 import {validateInput} from "./validateInput.js";
 import {initialData} from "./settings/data.js";
@@ -82,31 +82,30 @@ const updateChart = function (labels, results) {
 // here executes before dom99 went through
 // here you cannot use d.elements
 
-d.start(
-    document.body, // start Element
-    {
+d.functions.calculate = calculate;
+d.start({
+  startElement: document.body,
+  initialFeed: {
         step: "1",
         start: "0",
         stop: "20",
         equation: "x ** 2"
-    }, // initial feed
-    {
-        calculate
-    }, // functions
-    function () {
-        // function executes after dom99 went through
-        // here you can use d.elements
+    },
+  });
 
-        d.elements.loadingHint.remove();
+// executes after dom99 went through
+// here you can use d.elements
 
-        chart = new Chart(d.elements.chart, {
-            data: initialData,
-            type: "line", // or 'line', 'scatter', 'pie', 'percentage'
-            height: 380,
+d.elements.loadingHint.remove();
 
-            colors: ['#7cd6fd'],
+chart = new Chart(d.elements.chart, {
+    data: initialData,
+    type: "line", // or 'line', 'scatter', 'pie', 'percentage'
+    height: 380,
 
-            format_tooltip_x: d => `f(${d})= `,
-            format_tooltip_y: d => String(d)
-        });
+    colors: ['#7cd6fd'],
+
+    format_tooltip_x: d => `f(${d})= `,
+    format_tooltip_y: d => String(d)
 });
+
