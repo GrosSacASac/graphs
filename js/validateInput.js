@@ -30,5 +30,5 @@ const validateInput = function (start, stop, step, equationString) {
     // todo validate equationString from a whitelist of acceptable operators
 
     // no problems
-    return "";
+    return ``;
 };

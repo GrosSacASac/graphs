@@ -2,9 +2,13 @@
   "name": "graphs",
   "version": "1.0.5",
   "scripts": {
-    "serve": "serve"
+    "serve": "serve",
+    "lint-fix": "eslint --ignore-path .gitignore --fix js",
+    "lint": "eslint --ignore-path .gitignore js"
   },
   "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-red": "^1.6.0",
     "serve": "^11.2.0"
   },
   "dependencies": {
@@ -12,5 +16,18 @@
     "frappe-charts": "^1.3.0",
     "tachyons": "^4.11.1"
   },
-  "private": true
+  "private": true,
+  "eslintConfig": {
+    "extends": ["red"],
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {}
+    },
+    "env": {
+      "es6": true,  
+      "browser": true
+    },
+    "rules": {}
+}
 }

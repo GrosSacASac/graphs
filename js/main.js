@@ -4,8 +4,6 @@ import { validateInput } from "./validateInput.js";
 import { initialData } from "./settings/data.js";
 
 
-let chart;
-
 const calculate = function (event) {
     // prevent form submit
     if (event) {
@@ -21,11 +19,11 @@ const calculate = function (event) {
     if (errorMessage) {
         return;
     }
-    const resolveEquation = new Function("x", "before", `return ${equationString};`);
+    const resolveEquation = new Function(`x`, `before`, `return ${equationString};`);
 
 
 
-    const [results, xLabels] = getResultsAndLabels(start, stop, step, resolveEquation)
+    const [results, xLabels] = getResultsAndLabels(start, stop, step, resolveEquation);
     // results are f(x)
     // and xLabels are x
     // the y axis adjusts automatically
@@ -73,10 +71,10 @@ const updateChart = function (labels, results) {
         labels,
         datasets: [
             {
-                title: "Graph",
-                values: results
+                title: `Graph`,
+                values: results,
             },
-        ]
+        ],
 
     });
 };
@@ -91,10 +89,10 @@ d.functions.calculate = calculate;
 d.start({
     startElement: document.body,
     initialFeed: {
-        step: "1",
-        start: "0",
-        stop: "20",
-        equation: "x ** 2"
+        step: `1`,
+        start: `0`,
+        stop: `20`,
+        equation: `x ** 2`,
     },
 });
 
@@ -103,14 +101,18 @@ d.start({
 
 d.elements.loadingHint.remove();
 
-chart = new Chart(d.elements.chart, {
+const chart = new Chart(d.elements.chart, {
     data: initialData,
-    type: "line", // or 'line', 'scatter', 'pie', 'percentage'
+    type: `line`, // or 'line', 'scatter', 'pie', 'percentage'
     height: 380,
 
-    colors: ['#7cd6fd'],
+    colors: [`#7cd6fd`],
 
-    format_tooltip_x: d => `f(${d})= `,
-    format_tooltip_y: d => String(d)
+    format_tooltip_x: label => {
+        return `f(${label})= `;
+    },
+    format_tooltip_y: value => {
+        return String(value);
+    },
 });
 
