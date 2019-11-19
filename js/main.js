@@ -3,6 +3,7 @@ import { Chart } from "../node_modules/frappe-charts/dist/frappe-charts.min.esm.
 import { validateInput } from "./validateInput.js";
 import { initialData } from "./settings/data.js";
 
+
 let chart;
 
 const calculate = function (event) {

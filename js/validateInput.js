@@ -2,7 +2,6 @@ export { validateInput };
 
 
 const validateInput = function (start, stop, step, equationString) {
-
     if (!Number.isFinite(start)) {
         return `Start is not a finite number`;
     }

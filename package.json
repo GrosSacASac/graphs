@@ -1,9 +1,8 @@
 {
   "name": "graphs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
-    "serve": "serve",
-    "test": "echo \"Error: no test specified\""
+    "serve": "serve"
   },
   "devDependencies": {
     "serve": "^11.2.0"

@@ -1,34 +1,15 @@
 # graphs
 
-Draw a curve on a 2D graph, with given function, start, stop and step.
+Draw a curve on a 2D graph, with a given function, start, stop and step.
 
 ![Screenshot](images/screenshots/screenshot.jpg)
 
+## about
 
-## todo
+A minimal example on how to use [dom99](https://github.com/GrosSacASac/DOM99)
 
+### license
 
-whitelist commands for equation
+[CC0](./license.txt)
 
-2 inputs and see where they cross.
-
-display some help
-
-document the fact that you can  use x and before and all JS math operators
-
-use worka when it takes too long or omit (80 points)
-
-, use multiple when above certain treshrold (1000 ?)
-
-Make it abortable with controller abort same as fetch see mdn
-
-
-
-## About tachyons
-
--ns not small
-
--m medium
-
--l large
 
