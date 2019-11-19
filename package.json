@@ -12,22 +12,24 @@
     "serve": "^11.2.0"
   },
   "dependencies": {
-    "dom99": "^21.0.5",
+    "dom99": "^21.1.0",
     "frappe-charts": "^1.3.0",
     "tachyons": "^4.11.1"
   },
   "private": true,
   "eslintConfig": {
-    "extends": ["red"],
+    "extends": [
+      "red"
+    ],
     "parserOptions": {
       "ecmaVersion": 2020,
       "sourceType": "module",
       "ecmaFeatures": {}
     },
     "env": {
-      "es6": true,  
+      "es6": true,
       "browser": true
     },
     "rules": {}
-}
+  }
 }
