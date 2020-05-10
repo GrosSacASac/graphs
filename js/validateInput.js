@@ -1,4 +1,5 @@
 export { validateInput };
+import { validOperators, validVariables } from "./settings/validOperators.js";
 
 
 const validateInput = function (start, stop, step, equationString) {
@@ -23,11 +24,29 @@ const validateInput = function (start, stop, step, equationString) {
     if (Math.abs(step) >= (Math.abs(stop) - Math.abs(start))) {
         return `Step's absolute value must be smaller`;
     }
+
+    return validateEquationString(equationString);
+    
+};
+
+
+const validateEquationString = function (equationString) {
     if (equationString.length === 0) {
         return `Equation must not be empty`;
     }
 
-    // todo validate equationString from a whitelist of acceptable operators
+    const invalidCharacter = equationString.split(``).find(character => {
+        return (
+            Object.is(NaN, Number(character)) &&
+            character !== ` ` && // space
+            !validOperators.includes(character) && 
+            !validVariables.includes(character)
+        ); 
+    });
+
+    if (invalidCharacter) {
+        return `Invalid character ${invalidCharacter}`;
+    }
 
     // no problems
     return ``;
