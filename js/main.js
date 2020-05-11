@@ -19,7 +19,14 @@ const calculate = function (event) {
     if (errorMessage) {
         return;
     }
-    const resolveEquation = new Function(`x`, `before`, `return ${equationString};`);
+    let resolveEquation;
+    try {
+        resolveEquation = new Function(`x`, `before`, `return ${equationString};`);
+    } catch (error) {
+        // most likely a syntax error
+        d.feed(`errorHelp`, String(error));
+        return;
+    }
 
 
 
