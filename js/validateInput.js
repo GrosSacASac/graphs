@@ -21,7 +21,7 @@ const validateInput = function (start, stop, step, equationString) {
     if (start === stop) {
         return `Stop must be different than Start`;
     }
-    if (Math.abs(step) >= (Math.abs(stop) - Math.abs(start))) {
+    if (Math.abs(step) >= Math.abs(stop - start)) {
         return `Step's absolute value must be smaller`;
     }
 
