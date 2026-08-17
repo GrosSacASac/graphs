@@ -8,7 +8,7 @@ for production use a bundler to avoid network round-trips
 
 body {
    background-color: #fad420;
-   background-image: linear-gradient(to left, #fe4050 , #fad420);
+   background-image: linear-gradient(to left, #fefefe , #fafafa);
 }
 
 [hidden] {
