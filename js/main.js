@@ -111,12 +111,12 @@ d.elements.loadingHint.remove();
 const chart = new Chart(d.elements.chart, {
     data: initialData,
     type: `line`, // or 'line', 'scatter', 'pie', 'percentage'
-    height: 380,
+    height: 600,
 
     colors: [`#7cd6fd`],
 
     format_tooltip_x: label => {
-        return `f(${label})= `;
+        return `${label}`;
     },
     format_tooltip_y: value => {
         return String(value);
