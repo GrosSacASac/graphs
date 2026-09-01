@@ -51,4 +51,4 @@ const context = chart({
     animate: true,
 });
 
-// approximateLinear(context, x, y) //todo use same scaling (yvalues) as chart
+approximateLinear(context, x, y) //todo use same scaling (yvalues) as chart

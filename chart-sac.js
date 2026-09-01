@@ -120,7 +120,14 @@ const closestIndex = (array, exactIndex) => {
     Math.round(exactIndex)
 };
 
-const approximateLinear = (context, xValues, yValues) => {
+const approximateLinear = (context, xValues, yValues,
+    colorScheme = {
+        bg: "#000000",
+        graph: "#45efdf",
+        dot: "#0c6b17",
+        labelX: "#ffffff",
+        labelY: "#ececbe",
+    },) => {
     let totala=0;
     let totalb=0;
     const dataPoints = yValues.length;
@@ -139,24 +146,60 @@ const approximateLinear = (context, xValues, yValues) => {
     let multiplier = variationY / variationX;
     let base = averageA;
     const x1 = xValues[0];
-    const y1 = yValues[0]//base + multiplier * xValues[0];
+    const y1 = base + multiplier * xValues[0];
     
     const x2 = xValues[xValues.length-1];
-    const y2 = -0.00+yValues[yValues.length-1];//base + multiplier * xValues[xValues.length-1] 
-    console.log(y2);
-    chart({
-        xValues:[
-            x1,
-            xValues[Math.round(xValues.length*1/4)],
-            xValues[Math.round(xValues.length*3/4)],
-            x2,
-        ],
-        yValues: [
-            y1,
-            averageA,
-            averageB,
-            y2,
-        ],
-        context,
-    });
+    const y2 = base + multiplier * xValues[xValues.length-1];
+    
+
+    const canvas = context.canvas;
+    const xMax=canvas.width;
+    const yMax=canvas.height;
+    // clear(context, xMax, yMax, colorScheme.bg);
+    const margin = 0.1;
+    const contentSpace = 1 - (2 * margin);
+    const previous = [undefined, undefined];
+    const [xBase, xRange] = getBaseAndRange(xValues);
+    const [yBase, yRange] = getBaseAndRange(yValues);
+
+    
+    xValues = [
+        x1,
+        x2,
+    ];
+    yValues = [
+        y1,
+        y2,
+    ];
+    let i = 0;
+    const drawNext = (x) => {
+        const y = yValues[i];
+        const xOnTheGraph = (margin * xMax) + getRelativeValue(xBase, xRange, x) * xMax * contentSpace;
+        const yOnTheGraph = yMax - ((margin * yMax) + getRelativeValue(yBase, yRange, y) * yMax * contentSpace);
+
+        drawDot(context, xOnTheGraph, yOnTheGraph, colorScheme.dot);
+      
+        if (previous[0] !== undefined) {
+            drawLine(context, ...previous, xOnTheGraph, yOnTheGraph, colorScheme.graph);
+        }
+        previous[0] = xOnTheGraph;
+        previous[1] = yOnTheGraph;
+        i += 1;
+    };
+    const animate = false;
+    if (!animate) {
+        xValues.forEach(drawNext);
+        return context;
+    }
+    const animatedDrawNext = (x) => {
+        if (i === xValues.length) {
+            return;
+        }
+        drawNext(x);
+        requestAnimationFrame(()=> {
+            animatedDrawNext(xValues[i]);
+        });
+    };
+    animatedDrawNext(xValues[i]);
+    return context;
 };
